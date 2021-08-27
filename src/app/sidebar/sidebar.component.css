@@ -1,0 +1,98 @@
+/*!
+ * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+ @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  width: 210px;
+  list-style: none;
+  background-color: #274463;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/*menu submenu*/
+.sidebar-nav li {
+  line-height: 30px;
+}
+
+.sidebar-nav li a {
+  display: block;
+  color: #999999;
+  text-decoration: none;
+  
+}
+
+.sidebar-nav li a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  text-decoration: none;
+  margin-left: 0;
+}
+
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+  height: 65px;
+  font-size: 18px;
+  line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+  background: none;
+  color: #fff;
+}
+
+
+.dropdown-toggle::after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: .255em;
+  vertical-align: .255em;
+  content: "";
+  border-top: .3em solid;
+  border-right: .3em solid transparent;
+  border-bottom: 0;
+  border-left: .3em solid transparent;
+}
+.dropdown-toggle {
+  color:#fff;
+  padding: 10px 0;
+  border-bottom: 1px solid #274463;
+  font-weight: bolder;
+  /*text-indent: 20px;*/
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+
+.sidebar-header{
+  color:#fff;
+  padding: 20px 0;
+  /*border-bottom: 1px solid #fff;*/
+  font-weight: bolder;
+  /* text-indent: 20px; */
+  text-align: center;
+}
+
+
+ul ul a {
+ /* font-size: 0.9em !important;*/
+  padding-left: 20px !important;
+  background: #274463;
+}

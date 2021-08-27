@@ -1,0 +1,411 @@
+<!-- <div class="container-fluid background"> -->
+<div class="container" BackgroundDirective>
+  <div class="jumbotron">
+    <!-- ROW DE LOS DROPDOWNS -->
+    <!--  <div class="row">
+
+      <div class="control-group">
+      <div class="col-md-6">
+        <select (change)="selectBusiness($event)" class="form-control">
+          <option selected disabled>Select F&A Business</option>
+          <option *ngFor="let b of business" [ngValue]="b.Id">{{b.Name}}</option>
+        </select>
+      </div>
+    </div>  
+    <div class="control-group">
+      <div class="col-md-6">
+        <select [disabled]="disabledRegions" (change)="selectRegion($event)" class="form-control">
+          <option value="null" selected disabled>Select Dashboard</option>
+          <option *ngFor="let region of linkItems; let i = index" [selected]="i == 0" (ngValue)="region.Id">{{region.Name}}</option>
+        </select>
+      </div>
+    </div>
+  </div> 
+    <br>-->
+    <!-- SEARCH ROW -->
+    <br>
+    <!--<div class="row">
+      <div class="col-md-12" id="divSearch">
+        <input #SearchParameter="ngModel" [(ngModel)]="searchParameter" autocomplete [config]="config" [items]="tags" (inputChangedEvent)="autocomplete($event)"
+          (selectEvent)="onSelect($event)" class="search-control" type="text" placeholder="Search">
+      </div>
+    </div> -->
+    <!-- END -->
+    <br>
+    <br>
+
+    <div class="label-welcome">
+      <div>
+        <span>Conduent Business Intelligence Portal</span>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <div class="label-selectDashboard">
+      <div>
+        <span>Please, select the Dashboard by Business Area:</span>
+      </div>
+    </div>
+    <br>
+
+    <div class="custom-scroll">
+      <div class="row">
+        <div class="col-xs-12">      
+      <!--        <div class="row" *ngFor="let r of row1;let i =index">
+              <div class="col-md-4" *ngFor="let i of matrix[i];let x =index"> 
+                <div class="thumbnail">
+                  <div class="caption">
+                    <h4>{{i.Name}}</h4>           
+                  </div>
+                   <div class="panel-group">
+                    <div class="panel panel-default" *ngFor="let r of i.Region; let j=index;">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse" [href]="'#collapse_'+ x +'_' +j">{{r.Name}}</a>
+                        </h4>
+                      </div>
+                      <div [id]="'collapse_'+ x +'_' + j" class="panel-collapse collapse">
+                        <ul class="list-group">
+                          <li *ngFor="let l of r.LinkItem" class="list-group-item">
+                            <a *ngIf="l.ActiveReport==false; else reports" routerLink="/powerBi"
+                              (click)="setLink(l.PowerBiLink)">{{l.Name}}</a>
+                            <ng-template #reports>
+                              <a routerLink="/reports" href="#">{{l.Name}}</a>
+                            </ng-template>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div> 
+                </div>
+              </div>
+            </div> -->
+       
+          <div class="panel-group" id="business">
+              <div class="panel panel-default" *ngFor="let b of business; let i=index;">
+                <div class="panel-heading">
+                  <h4 class="panel-title" >
+                    <a role="button" data-toggle="collapse" data-parent="#business" aria-expanded="true" [href]="'#collaps_'+i" style="display: block;">{{b.Name}}</a>
+                  </h4>
+                </div>
+                <div [id]="'collaps_'+i" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <div class="panel-group" id="regions">
+                      <div class="panel panel-default" *ngFor="let r of b.Region; let j=index;">
+                        <div class="panel-heading">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#regions"  [href]="'#collaps_'+ i +'_' +j" style="display: block;">{{r.Name}}</a>
+                          </h4>
+                        </div>
+                        <div [id]="'collaps_'+ i +'_' + j" class="panel-collapse collapse">
+                          <ul class="list-group">
+                            <li *ngFor="let l of r.LinkItem" class="list-group-item">
+                              <a *ngIf="l.ActiveReport==false; else reports" routerLink="/powerBi"
+                                (click)="setLink(l.PowerBiLink)" style="display: block;">{{l.Name}}</a>
+                              <ng-template #reports>
+                                <a routerLink="/reports" href="#">{{l.Name}}</a>
+                              </ng-template>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div> 
+                  </div>
+                </div>
+              </div>   
+            </div> 
+
+            
+<!--             <div class="panel-group">
+              <div class="row" *ngFor="let r of row1;let i=index; let o=index;">          
+              <div class="col-md-4" *ngFor="let i of matrix[i];let x =index"> 
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" class="business" [href]="'#collapse_'+ o +'_'+x">{{i.Name}}</a>
+                  </h4>
+                </div>
+                <div [id]="'collapse_'+ o +'_'+ x" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <div class="panel-group">
+                      <div class="panel panel-default" *ngFor="let r of i.Region; let j=index;">
+                        <div class="panel-heading">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" class="regions" [href]="'#collapse_'+ o + '_' + x +'_' +j">{{r.Name}}</a>
+                          </h4>
+                        </div>
+                        <div [id]="'collapse_'+ o +'_'+ x +'_' + j" class="panel-collapse collapse">
+                          <ul class="list-group">
+                            <li *ngFor="let l of r.LinkItem" class="list-group-item">
+                              <i class="glyphicon glyphicon-link" style="font-size: 14px; color:white;"></i>&nbsp;
+                              <a *ngIf="l.ActiveReport==false; else reports" routerLink="/powerBi"
+                                (click)="setLink(l.PowerBiLink)">{{l.Name}}</a>
+                              <ng-template #reports>
+                                <a routerLink="/reports" href="#">{{l.Name}}</a>
+                              </ng-template>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div> 
+                  </div>
+                </div>
+              </div>   
+            </div>
+          </div>
+     
+            </div>  -->
+         
+      
+
+        </div>
+        <ng-container *ngIf="hidden">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="table-responsive">
+                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                  <!-- col-lg-8-->
+                  <table class="table borderless">
+                    <tbody>
+                      <ng-container *ngFor="let item of arrayPath">
+                        <!-- let item of currentLinkItem -->
+                        <tr class="text-align-left">
+                          <!-- <td>
+                          <img [ngStyle]="{'width': item.RegionID == '10' ? '180px' : '50px'}" src="{{server + item.LogoPath}}">
+                        </td>
+                        -->
+                          <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                              <div class="thumbnail">
+                                <div class="caption">
+                                  <h3>{{item.Business}}</h3>
+                                  <div class="panel-group">
+                                    <div class="panel panel-default">
+                                      <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                          <a data-toggle="collapse" href="#collapse1">Regions</a>
+                                        </h4>
+                                      </div>
+                                      <div id="collapse1" class="panel-collapse collapse">
+                                        <ul class="list-group">
+                                          <li class="list-group-item"><a data-toggle="collapse" href="#collapse2">Region
+                                              1</a></li>
+
+                                          <div class="panel panel-default">
+                                            <div id="collapse2" class="panel-collapse collapse">
+                                              <ul class="list-group">
+                                                <li class="list-group-item">Dashboard 1</li>
+                                                <li class="list-group-item">Dashboard 2</li>
+                                              </ul>
+                                            </div>
+
+                                          </div>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!--Path-->
+                          <td class="color-letters-countries">
+                            <!-- {{item.Path}} -->
+                          </td>
+                          <!--  <ng-container *ngIf="item.ActiveReport==false; else report">
+                      
+                          <td class="text-align-right">
+                            <button type="button" class="btn btn-light" routerLink="/powerBi" (click)="setLink(item.PowerBiLink)" tooltip="Open PowerBi">
+                              <span class="glyphicon glyphicon-stats edit fa-3x"></span>
+                            </button>
+                          </td>
+                      
+                          <td *ngIf="isAdmin || isAdminDemo" class="text-align-right" >
+                            <button  type="button" class="btn btn-light" (click)="showEditModal(item.Id)" tooltip="Edit PowerBi Details">
+                              <span class="glyphicon glyphicon-edit edit fa-3x"></span>
+                            </button>
+                          </td>
+                        </ng-container> -->
+                          <!--Delete Dashboard-->
+                          <!-- <td *ngIf="isAdmin || isAdminDemo" class="text-align-right" >
+                            <button  type="button" class="btn btn-light" (click)="showAlertModal(item.Id)" tooltip="Delete Dashboard">
+                            <span class="glyphicon glyphicon-trash fa-3x"></span>
+                          </button>
+                        </td>
+                        <td *ngIf="item.ActiveReport" class="text-align-right">
+                          <button type="button" class="btn btn-light" (click)="getReport()" tooltip="Download Report">
+                            <span class="glyphicon glyphicon-save-file edit fa-3x"></span>
+                          </button>
+                        </td> -->
+
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <div [hidden]="hideVideo">
+          <div class="embed-responsive embed-responsive-16by9">
+            <video controls>
+              <source src="{{videoPath}}">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Reports-->
+<ng-template #report>
+  <td class="text-align-right">
+    <button type="button" class="btn btn-light" [routerLink]="'/reports'" tooltip="Reports">
+      <span class="glyphicon glyphicon-save-file edit fa-3x"></span>
+    </button>
+  </td>
+</ng-template>
+<!-- Modal de Editar -->
+
+<div class="modal fade" bsModal #EditModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" [config]="{backdrop: 'static', keyboard: 'false'}">
+
+  <div class="modal-dialog" role="document">
+    <!--class="modal-dialog" -->
+    <div class="modal-content">
+      <div class="modal-header modal-edit">
+        <button type="button" class="close" (click)="EditModal.hide()" aria-label="Close" style="color:black;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4><i class="glyphicon glyphicon-pencil"></i> Edit link</h4>
+      </div>
+      <form (ngSubmit)="frmModal.form.valid && editLink()" #frmModal="ngForm">
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label for="itemLinkName">Item Name</label>
+              <input name="Name" #NewName="ngModel" [(ngModel)]="newLink.Name" id="itemLinkName" type="text"
+                class="form-control" placeholder="Item Name" required>
+              <div *ngIf="frmModal.submitted && NewName.invalid" class="invalid-feedback">
+                <div *ngIf="NewName.errors.required">Name is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-9">
+              <label for="biLink">Power BI Link</label>
+              <input name="biLink" #NewPowerBiLink="ngModel" [(ngModel)]="newLink.PowerBiLink" id="biLink" type="url"
+                class="form-control" placeholder="Power BI Link" required pattern="https?://.+" url>
+              <div *ngIf="frmModal.submitted && NewPowerBiLink.invalid" class="invalid-feedback">
+                <div *ngIf="NewPowerBiLink.errors.required">Power BI link is required</div>
+                <div *ngIf="NewPowerBiLink.errors.pattern">Power BI link must be a valid url</div>
+              </div>
+            </div>
+            <div class="form-group col-sm-3">
+              <label>Order</label>
+              <select class="form-control" [(ngModel)]="newLink.Order" [ngModelOptions]="{standalone: true}" required
+                #Order="ngModel">
+                <option selected value="undefined">--Select order--</option>
+                <option *ngFor="let r of newLink.OrderList" [ngValue]="r">{{r}}</option>
+              </select>
+              <div *ngIf="frmModal.submitted && Order.invalid" class="invalid-feedback">
+                <div *ngIf="Order.errors.required">Order is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success"> Save Changes</button>
+          <button type="button" #btnCloseEdit class="btn btn-secondary" (click)="EditModal.hide()"> Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--Fin Modal Editar-->
+
+<!-- AddLink -->
+<!-- <div class="row pull-right" *ngIf="isAdmin">
+  <br>
+  <div class="col-xs-12">
+    <button type="button" class="btn btn-primary" (click)="showAddModal(childTemplate)">Add Link</button>
+  </div>
+</div> -->
+<!-- End AddLink -->
+
+<!-- Modal Add-->
+<ng-template #childTemplate>
+  <!-- <div class="modal fade" bsModal #AddModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+
+  <div class="modal-dialog" role="document"> 
+    <div class="modal-content"> -->
+  <div class="modal-header modal-edit">
+    <button type="button" class="close" (click)="AddModal.hide()" aria-label="Close" style="color:black;">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4><i class="glyphicon glyphicon-pencil"></i> Add Link</h4>
+  </div>
+  <form #frmModal="ngForm" (ngSubmit)="frmModal.form.valid && submitLink(frmModal)">
+    <div class="modal-body">
+      <div class="row">
+        <div class="form-group col-sm-6">
+          <label for="itemLinkName">Item Name</label>
+          <input name="Name" #Name="ngModel" [(ngModel)]="Link.Name" id="itemLinkName" type="text" class="form-control"
+            placeholder="Item Name" required>
+          <div *ngIf="frmModal.submitted && Name.invalid" class="invalid-feedback">
+            <div *ngIf="Name.errors.required">Name is required</div>
+          </div>
+        </div>
+        <div class="form-group col-sm-6">
+          <label>Business</label>
+          <select (change)="selectBusiness2($event)" class="form-control" required>
+            <option selected disabled>Select Business</option>
+            <option *ngFor="let b of business" [ngValue]="b.Id">{{b.Name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-md-6">
+          <label>Region</label>
+          <select name="regionModal" [disabled]="disabledRegionsModal" (change)="selectRegion($event)"
+            class="form-control" required>
+            <option selected disabled>Select Region</option>
+            <option *ngFor="let regionModal of lstRegions; let i = index" [selected]="i == 0"
+              [ngValue]="regionModal.Id">{{regionModal.Name}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="biLink">Power BI Link</label>
+          <input name="biLink" #PowerBiLink="ngModel" [(ngModel)]="Link.PowerBiLink" id="biLink" type="url"
+            class="form-control" placeholder="Power BI Link" required pattern="https?://.+" url>
+          <div *ngIf="frmModal.submitted && PowerBiLink.invalid" class="invalid-feedback">
+            <div *ngIf="PowerBiLink.errors.required">Power BI link is required</div>
+            <div *ngIf="PowerBiLink.errors.pattern">Power BI link must be a valid url</div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row pull-left">
+            <div class="col-xs-12">
+              <button type="submit" class="btn btn-primary" [disabled]="!frmModal.valid">Add Link</button>
+            </div>
+          </div> -->
+    </div>
+  </form>
+  <div class="modal-footer">
+    <!-- <button type="submit" (click)="submitLink()" class="btn btn-success"> Save Changes & Refresh</button> -->
+    <button type="submit" class="btn btn-success" [disabled]="!frmModal.valid"> Save Changes & Refresh</button>
+    <button type="button" #btnCloseEdit class="btn btn-secondary" (click)="AddModal.hide()"> Cancel</button>
+  </div>
+  <!-- </div>
+  </div>
+</div> -->
+</ng-template>
+
+<!-- Fin Modal Add -->

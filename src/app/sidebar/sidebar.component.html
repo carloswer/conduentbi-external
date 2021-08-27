@@ -1,0 +1,104 @@
+<ul class="sidebar-nav">
+    <li class="sidebar-header">
+        <h4>
+             Menu
+        </h4>
+    </li>
+    <li *ngIf="isAdminDemo"><a class="btn" (click)="showAddModal(childTemplate2)">Add Link <i
+                class="fa fa-plus"></i></a></li>
+    <hr *ngIf="isAdminDemo">
+
+    <ul class="list-unstyled components" *ngIf="isAdmin && !isAdminDemo; else templateUser">
+        <li><a routerLink="/users" href="#">Users</a></li>
+        <li><a routerLink="/linkManager" href="#">Link Management</a></li>
+        <li><a routerLink="/business" href="#">Business / Regions</a></li>
+        <li><a routerLink="/tags" href="#">Tags</a></li>
+        <li><a routerLink="/roles" href="#">Roles</a></li>
+        <li><a routerLink="/reports" href="#">Reports</a></li>
+    </ul>
+</ul>
+
+<ng-template #templateUser>
+    <ul class="list-unstyled components">
+        <li *ngFor="let b of business; let i=index">
+            <a [href]="'#homeSubmenu_' + i" data-toggle="collapse" aria-expanded="false"
+                class="dropdown-toggle collapsed">{{b.Name}}</a>
+            <ul class="collapse list-unstyled" *ngFor="let r of b.Region" [id]="'homeSubmenu_' + i">
+                <li *ngFor="let r of b.Region; let j=index">
+                    <a [href]="'#regionSubmenu_'+i+'_' + j" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle collapsed">{{r.Name}}</a>
+                    <ul class="collapse list-unstyled" [id]="'regionSubmenu_'+i+'_' + j">
+                        <li *ngFor="let l of r.LinkItem">
+                            <a *ngIf="l.ActiveReport==false; else reports" routerLink="/powerBi" (click)="setLink(l.PowerBiLink)">{{l.Name}}</a>    
+                            <ng-template #reports>
+                                <a routerLink="/reports" href="#">{{l.Name}}</a>
+                            </ng-template>                     
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</ng-template>
+
+
+
+
+<!--Add LinkItem-->
+<!-- Modal Add-->
+<ng-template #childTemplate2>
+    <!-- <div class="modal fade" bsModal #AddModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document"> 
+        <div class="modal-content"> -->
+
+    <div class="modal-header modal-edit">
+        <button type="button" class="close" (click)="closeCurrentModal()" aria-label="Close" style="color:black;">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h3><i class="glyphicon glyphicon-plus"></i> Add Link </h3>
+    </div>
+    <!-- <form (ngSubmit)="frmModal.form.valid && submitLink()" #frmModal="ngForm"> -->
+    <form (ngSubmit)="submitLink()" #frmModal="ngForm">
+        <div class="modal-body">
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="itemLinkName">Item Name</label>
+                    <input name="Name" #Name="ngModel" [(ngModel)]="Link.Name" id="itemLinkName" type="text"
+                        class="form-control" placeholder="Item Name" required>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>Business</label>
+                    <select (change)="selectBusiness2($event)" class="form-control">
+                        <option selected disabled>Select F&A Business</option>
+                        <option *ngFor="let b of business" [ngValue]="b.Id">{{b.Name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label>Region</label>
+                    <select name="regionModal" [disabled]="disabledRegionsModal" (change)="selectRegion($event)"
+                        class="form-control">
+                        <option value="null" selected disabled>Select Region</option>
+                        <option *ngFor="let regionModal of lstRegions; let i = index" [selected]="i == 0"
+                            [ngValue]="regionModal.Id">{{regionModal.Name}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="biLink">Power BI Link</label>
+                    <input name="biLink" #PowerBiLink="ngModel" [(ngModel)]="Link.PowerBiLink" id="biLink" type="text"
+                        class="form-control" placeholder="Power BI Link" required>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="modal-footer">
+        <button type="submit" (click)="submitLink()" [disabled]="!frmModal.valid" class="btn btn-success"> Save &
+            Refresh </button>
+        <!-- <button type="submit" class="btn btn-success" [disabled]="!frmModal.valid"> Save & Refresh </button> -->
+        <button type="button" #btnCloseAdd class="btn btn-secondary" (click)="closeCurrentModal()"> Cancel</button>
+    </div>
+    <!-- </div>
+    </div>
+</div>  -->
+</ng-template>

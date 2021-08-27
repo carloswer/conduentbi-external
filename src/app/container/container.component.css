@@ -1,0 +1,26 @@
+.fullscreen{
+
+    width: 100vw;
+    /*height: 100vh;  */
+    height: calc(100vh - 8rem);
+    left: 0;
+    top: 0;
+    z-index: 10;
+    margin: 0 -1.2em 0;
+ 
+}
+
+.biFooter{
+    z-index: 100; 
+    background-color:#eaeaea;
+    position:absolute;
+    /*bottom:0; */
+    bottom:30px;
+    width:30%; 
+    height: 31px;
+    /*border-top: 1px solid #c8c8c8;*/
+    /*right:0;*/
+    right:0px;
+}
+
+  

@@ -1,0 +1,30 @@
+/*@import '~bootstrap/dist/css/bootstrap-essentials.css';*/
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '../node_modules/primeng/resources/primeng.min.css';
+@import '../node_modules/primeng/resources/themes/omega/theme.css';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800');
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,600,700,800,900');
+/*scroll disable*/
+html, body {
+    overflow-x: hidden;
+   /* overflow-y: auto !important;  */
+    font-family:  'Open Sans', sans-serif;
+  
+  }
+
+  .white{
+    background-color: white;
+  }
+  .background {
+    background: url('../src/assets/dashboardBG2.png') center/cover no-repeat fixed;
+    /* position: absolute; */
+    left: 0;
+    right: 0;
+    height: -moz-available;          /* WebKit-based browsers will ignore this. */
+    height: -webkit-fill-available;  /* Mozilla-based browsers will ignore this.*/
+}
+
+
+ .invalid-feedback{
+  color: red;
+}

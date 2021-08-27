@@ -1,0 +1,20 @@
+<block-ui>
+<app-navbar *ngIf="nav.visible"></app-navbar>
+
+<div id="wrapper">
+    <!-- Sidebar -->
+<app-sidebar *ngIf="!isLogin" id="sidebar-wrapper"></app-sidebar>
+
+
+<div id="page-content-wrapper">
+
+<div class="container-fluid" [ngClass]="{ 'custom-container': !isLogin }" >
+  <router-outlet></router-outlet>
+  <app-footer *ngIf="!isLogin" ></app-footer>
+</div>
+
+</div>
+
+</div>
+
+</block-ui>

@@ -1,0 +1,315 @@
+.background {
+  background: url("/assets/blurry-abstract.jpg");
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.scrollbar {
+  overflow-y: auto;
+}
+
+
+.jumbotron {
+  position: absolute;
+  transform: translateY(15%);
+  margin-top: -2%;
+  perspective: 600px;
+}
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+}
+
+
+/*login panel*/
+#login{
+  background-color: transparent;
+  border: 2px solid #eee;
+  /*border-radius: 20px;*/
+  position: relative;
+  border-radius: 0;
+}
+
+/*logo bi
+#login::before{
+
+
+  content: '';
+  background: url("/assets/powerbi_white.png") center/100px no-repeat #1a315a; 
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  width: 150px;
+  height: 150px;
+  margin-top: -75px;
+  margin-left: -75px;
+
+}*/
+
+/*Logo mobile responsive -media query */
+/* @media only screen and (max-width: 766px) {
+  #login::before{left: 28%;}
+} */
+
+
+
+
+#formContainer{
+ 
+  height:365px;
+  /*margin:50px auto;*/
+  position:relative;
+  /* top: 20px; */
+}
+
+#formContainer form{
+  width:100%;
+  height:100%;
+  position:absolute;
+  top:0;
+  left:0;
+  padding: 25px;
+
+  /* Enabling 3d space for the transforms */
+  -moz-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+
+  /* When the forms are flipped, they will be hidden */
+  -moz-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  /* Enabling a smooth animated transition */
+  -moz-transition:all 1s ease-in-out;
+  -webkit-transition:all 1s ease-in-out;
+  transition:all 1s ease-in-out;
+
+  /* Configure a keyframe animation for Firefox */
+  -moz-animation: pulse 2s infinite;
+
+  /* Configure it for Chrome and Safari */
+  -webkit-animation: pulse 2s infinite;
+}
+
+#front{
+  z-index:100;
+}
+
+#back{
+  z-index:1;
+  opacity:0;
+  /* Rotating the recover password form by default */
+  -moz-transform:rotateY(180deg);
+  -webkit-transform:rotateY(180deg);
+  transform:rotateY(180deg);
+}
+
+#formContainer.flipped #front{
+  opacity:0;
+  /**
+   * Rotating the login form when the
+   * flipped class is added to the container
+   */
+  -moz-transform:rotateY(-180deg);
+  -webkit-transform:rotateY(-180deg);
+  transform:rotateY(-180deg);
+}
+
+#formContainer.flipped #back{
+  opacity:1;
+  /* Rotating the back div into view */
+  -moz-transform:rotateY(0deg);
+  -webkit-transform:rotateY(0deg);
+  transform:rotateY(0deg);
+}
+
+.bi-logo {
+  display: block;
+  height: 75%;
+  margin: auto;
+  width: 75%;
+  transition: all 0.5s ease-in-out;
+}
+
+.title-back {
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 2.0em;
+  margin-top: 2.5em;
+}
+
+.fa-spin {
+  color: white;
+  font-size: 2.5em;
+}
+
+.lg-input {
+  background-color: rgba(255, 255, 255, 0.43);
+  border: none;
+  outline: none;
+  padding: 12px 40px 10px;
+  position: relative;
+}
+
+.display {
+  display: none;
+}
+
+.form-group {
+  position: relative;
+}
+
+.lg-input {
+  position: relative;
+  /*font-family: "Source Sans Pro", sans-serif;*/
+  font-weight: 600;
+  width: 100%;
+  height: 40px;
+  border: none;
+  padding: 0 10px;
+  box-shadow: none;
+  outline: none;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.form-input.border-animation, .lg-input.border-animation {
+  border: 2px solid rgba(0, 0, 0, .2);
+}
+
+.lg-input.border-animation~.border-line-animation.top-bottom:before, .lg-input.border-animation~.border-line-animation.top-bottom:after, .lg-input.border-animation~.border-line-animation.left-right:before, .lg-input.border-animation~.border-line-animation.left-right:after, .lg-input.border-animation~.border-line-animation.top:before, .lg-input.border-animation~.border-line-animation.top:after, .lg-input.border-animation~.border-line-animation.bottom:before, .lg-input.border-animation~.border-line-animation.bottom:after, .lg-input.border-animation~.border-line-animation.left:before, .lg-input.border-animation~.border-line-animation.left:after, .lg-input.border-animation~.border-line-animation.right:before, .lg-input.border-animation~.border-line-animation.right:after {
+  position: absolute;
+  content: " ";
+  right: 0;
+  /* background: #4285F4; */
+  background: #273f69;
+  -webkit-transition: all .3s linear;
+  -moz-transition: all .3s linear;
+  -ms-transition: all .3s linear;
+  -o-transition: all .3s linear;
+  transition: all .3s linear;
+}
+
+.form-input.border-animation~.border-line-animation.top-bottom:before, .form-input.border-animation~.border-line-animation.top-bottom:after, .form-input.border-animation~.border-line-animation.top:before, .form-input.border-animation~.border-line-animation.top:after, .form-input.border-animation~.border-line-animation.bottom:before, .form-input.border-animation~.border-line-animation.bottom:after, .lg-input.border-animation~.border-line-animation.top-bottom:before, .lg-input.border-animation~.border-line-animation.top-bottom:after, .lg-input.border-animation~.border-line-animation.top:before, .lg-input.border-animation~.border-line-animation.top:after, .lg-input.border-animation~.border-line-animation.bottom:before, .lg-input.border-animation~.border-line-animation.bottom:after {
+  width: 0;
+  height: 2px;
+}
+
+.form-input.border-animation~.border-line-animation.left-right:before, .form-input.border-animation~.border-line-animation.left-right:after, .form-input.border-animation~.border-line-animation.left:before, .form-input.border-animation~.border-line-animation.left:after, .form-input.border-animation~.border-line-animation.right:before, .form-input.border-animation~.border-line-animation.right:after, .lg-input.border-animation~.border-line-animation.left-right:before, .lg-input.border-animation~.border-line-animation.left-right:after, .lg-input.border-animation~.border-line-animation.left:before, .lg-input.border-animation~.border-line-animation.left:after, .lg-input.border-animation~.border-line-animation.right:before, .lg-input.border-animation~.border-line-animation.right:after {
+  width: 2px;
+  height: 0;
+}
+
+.form-input.border-animation.set-1~.border-line-animation.top-bottom:before, .lg-input.border-animation.set-1~.border-line-animation.top-bottom:before {
+  bottom: 0;
+  left: 0;
+}
+
+.form-input.border-animation.set-1~.border-line-animation.top-bottom:after, .lg-input.border-animation.set-1~.border-line-animation.top-bottom:after {
+  top: 0;
+  right: 0;
+}
+
+.form-input.border-animation.set-1~.border-line-animation.left-right:before, .lg-input.border-animation.set-1~.border-line-animation.left-right:before {
+  left: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.form-input.border-animation.set-1~.border-line-animation.left-right:after, .lg-input.border-animation.set-1~.border-line-animation.left-right:after {
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.form-input.border-animation.set-1:focus~.border-line-animation.top-bottom:before, .form-input.border-animation.set-1:focus~.border-line-animation.top-bottom:after, .lg-input.border-animation.set-1:focus~.border-line-animation.top-bottom:before, .lg-input.border-animation.set-1:focus~.border-line-animation.top-bottom:after {
+  width: 100%;
+}
+
+.form-input.border-animation.set-1:focus~.border-line-animation.left-right:before, .form-input.border-animation.set-1:focus~.border-line-animation.left-right:after, .lg-input.border-animation.set-1:focus~.border-line-animation.left-right:before, .lg-input.border-animation.set-1:focus~.border-line-animation.left-right:after {
+  height: 100%;
+}
+
+
+/* login container */
+.container-login {
+  max-width: 550px;
+  padding-top: 80px;
+}
+
+
+.container-login,
+.container-login-2 {
+  z-index: 100;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+ 
+.portal-name{
+  font-size: 20px;
+  color: #fff;
+  /* line-height: 1.2; */
+  text-align: center;
+  /*display: block;*/
+ /* position: absolute;*/
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: #274463;
+  padding-top: 35px;
+  padding-bottom: 35px;
+  padding-left: 30px;
+  padding-right: 30px;
+  letter-spacing: .8px;
+  /*box-shadow: 5px 10px 5px #021;*/
+}
+
+
+
+
+
+
+
+
+/*prtal name responsive -media query */
+ @media only screen and (max-width: 766px) {
+  .portal-name{
+    font-size: 14px;
+  }
+} 
+
+
+.btn{
+  border-radius: 0 !important;
+}
+
+.panel-body {
+  padding: 40px;
+}
+
+.warning{
+    color: #274463;
+    font-size: 12px;
+    font-weight: bolder; 
+    margin-top: 18px;
+    /* margin-left: -66px; */
+    /* margin-right: -65px; */
+    padding: 5px;
+}

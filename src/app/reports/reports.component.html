@@ -1,0 +1,128 @@
+<div class="container-fluid">
+<div class="row">
+
+    <h1>
+      <i class="glyphicon glyphicon-save-file"></i> Report
+    </h1>
+
+</div>
+  <div class="row">
+      <br>
+    <form #reportForm="ngForm" (ngSubmit)="reportForm.form.valid && OnSubmit(reportForm)">
+      <div class="row">
+        <div class="form-group col-sm-6">
+          <label>Report Type</label>
+          <select class="form-control" name="ReportType" [(ngModel)]="filters.ReportType"
+            #ReportType="ngModel" required>
+            <option value="undefined">--Select--</option>
+            <option *ngFor="let rt of reportTypes" [ngValue]="rt.ReportType">{{rt.ReportType}}</option>
+            <!-- <option *ngFor="let rt of reportTypes" [ngValue]="rt.Id">{{rt.ReportType}}</option>-->
+          </select>
+          <div *ngIf="reportForm.submitted && ReportType.invalid" class="invalid-feedback">
+            <div *ngIf="ReportType.errors.required">Report Type is required</div>
+        </div>
+        </div>
+        <div class="form-group col-sm-6">
+          <label>Request Status</label><br>
+            <p-multiSelect [defaultLabel]="'All'" name="RequestStatus" #RequestStatus="ngModel" [options]="requestStatus" scrollHeight="100px" 
+            [style]="{'display': 'block'}" [filter]="false" [(ngModel)]="selectedRequestStatus" optionLabel="RequestStatus" (onChange)="onChangeRequestStatus($event.value)">
+            </p-multiSelect>
+        <!--     <div *ngIf="reportForm.submitted && RequestStatus.invalid" class="invalid-feedback">
+              <div *ngIf="RequestStatus.errors.required">Request Status is required</div>
+          </div> -->
+          </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-6">
+          <label>Region</label>
+          <p-multiSelect [defaultLabel]="'All'" name="Region" #Region="ngModel" [options]="regions" scrollHeight="80px" 
+          [style]="{'display': 'block'}"  [filter]="false" [(ngModel)]="selectedRegions" optionLabel="Region"
+          (onChange)="onChangeRegion($event.value)"></p-multiSelect>
+        <!-- <div *ngIf="reportForm.submitted && Region.invalid" class="invalid-feedback">
+            <div *ngIf="Region.errors.required">Region is required</div>
+        </div>         -->
+        </div>
+        <div class="form-group col-sm-6">
+          <label>Sub Region</label>
+          <p-multiSelect [defaultLabel]="'All'" name="SubRegion" #SubRegion="ngModel" [options]="subRegionsByRegion" scrollHeight="80px" 
+          [style]="{'display': 'block'}" [filter]="false" [(ngModel)]="selectedSubRegions" optionLabel="SubRegion">
+          </p-multiSelect>
+         <!-- <div *ngIf="reportForm.submitted && SubRegion.invalid" class="invalid-feedback">
+            <div *ngIf="SubRegion.errors.required">Sub Region is required</div>
+        </div>  -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-4">
+          <label>Year</label>
+    <select [disabled]="isYearDisabled" class="form-control" [(ngModel)]="filters.Year"
+            name="Year" #Year="ngModel" required>
+            <option [ngValue]="undefined">--Select--</option>
+            <option *ngFor="let y of years" [ngValue]="y.Year">{{y.Year}}</option>
+          </select>
+          <div *ngIf="reportForm.submitted && Year.invalid" class="invalid-feedback">
+            <div *ngIf="Year.errors.required">Year is required</div>
+        </div>      
+        </div>
+        <div class="form-group col-sm-4">
+          <label>Quarter</label>
+          <p-multiSelect [disabled]="isQuarterDisabled" [defaultLabel]="'All'" name="Quarter" #Quarter="ngModel" [options]="quarters" scrollHeight="100px" 
+          [style]="{'display': 'block'}"  [filter]="false" [(ngModel)]="selectedQuarters" optionLabel="Quarter"
+          (onChange)="onChangeQuarter($event.value)"></p-multiSelect>
+        <!-- <div *ngIf="reportForm.submitted && Quarter.invalid" class="invalid-feedback">
+            <div *ngIf="Quarter.errors.required">Quarter is required</div>
+        </div>  -->
+        </div>
+        <div class="form-group col-sm-4">
+        <label>Month</label><br>
+          <p-multiSelect [disabled]="isMonthDisabled" [defaultLabel]="'All'" name="Month" #Month="ngModel" [options]="monthsByQuarter" scrollHeight="100px" 
+          [style]="{'display': 'block'}" [filter]="false" [(ngModel)]="selectedMonths" optionLabel="Month">
+          </p-multiSelect>
+        <!-- <div *ngIf="reportForm.submitted && Month.invalid" class="invalid-feedback">
+            <div *ngIf="Month.errors.required">Month is required</div>
+        </div>  -->
+        </div>
+      </div>  
+    <div class="row">
+        <div class="form-group col-sm-4">
+          <label>Addressable or Non Addressable</label>
+          <p-multiSelect [defaultLabel]="'All'" name="Addressable" #Addressable="ngModel" [options]="addressables" scrollHeight="80px" 
+          [style]="{'display': 'block'}" [filter]="false" [(ngModel)]="selectedAddressables" optionLabel="Addressable">
+          </p-multiSelect>
+    <!--       <div *ngIf="reportForm.submitted && Addressable.invalid" class="invalid-feedback">
+            <div *ngIf="Addressable.errors.required">Addressable is required</div>
+        </div> -->
+        </div>
+        <div class="form-group col-sm-4">
+          <label>Product Type</label><br>
+            <p-multiSelect [defaultLabel]="'All'" name="ProductType" #ProductType="ngModel" [options]="productTypes" scrollHeight="100px" 
+            [style]="{'display': 'block'}" [filter]="false" [(ngModel)]="selectedProductTypes" optionLabel="ProductType">
+            </p-multiSelect>
+      <!--       <div *ngIf="reportForm.submitted && ProductType.invalid" class="invalid-feedback">
+              <div *ngIf="ProductType.errors.required">Product Type is required</div>
+          </div> -->
+          </div>
+        <div class="form-group col-sm-4">
+          <label>Saving Methodology</label>
+          <p-multiSelect [defaultLabel]="'All'" name="Savings"  #Savings="ngModel" [options]="savingMethodologies" scrollHeight="80px" 
+          [style]="{'display': 'block'}" [filter]="false" [(ngModel)]="selectedSavingMethodologies" optionLabel="SavingMethodology">
+          </p-multiSelect>
+   <!--        <div *ngIf="reportForm.submitted && Savings.invalid" class="invalid-feedback">
+            <div *ngIf="Savings.errors.required">Saving Methodology is required</div>
+        </div> -->
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-primary">Download</button>
+        </div>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+    </form>
+  </div>
+</div>
+

@@ -1,0 +1,322 @@
+<div class="container-fluid ">
+  <div class="row">
+    <h1>
+      <i class="glyphicon glyphicon-plus-sign"></i> User
+    </h1>
+  </div>
+
+
+  <div class="row">
+    <form name="form" (ngSubmit)="f.form.valid && OnSubmit(f)" #f="ngForm" novalidate>
+
+      <div class="row">
+        <div class="form-group col-sm-4">
+          <label for="firstName">First Name</label>
+          <input type="text" class="form-control" (keyup)="onKeyFirstName($event)" name="FirstName" [(ngModel)]="user.FirstName" #FirstName="ngModel"  required />
+          <div *ngIf="f.submitted && FirstName.invalid" class="invalid-feedback">
+              <div *ngIf="FirstName.errors.required">First Name is required</div>
+          </div>
+      </div>
+      <div class="form-group col-sm-4">
+          <label for="lastName">Last Name</label>
+          <input type="text" class="form-control" (keyup)="onKeyLastName($event)"  name="LastName" [(ngModel)]="user.LastName" #LastName="ngModel" required />
+          <div *ngIf="f.submitted && LastName.invalid" class="invalid-feedback">
+              <div *ngIf="LastName.errors.required">Last Name is required</div>
+          </div>
+      </div>
+      <div class="form-group col-sm-4">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" name="Email" [(ngModel)]="user.Email" #Email="ngModel"  required email />
+          <div *ngIf="f.submitted && Email.invalid" class="invalid-feedback">
+              <div *ngIf="Email.errors.required">Email is required</div>
+              <div *ngIf="Email.errors.email">Email must be a valid email address</div>
+          </div>
+      </div>
+      </div>
+      <div class="row">
+        <!-- win id-->
+        
+        <div class="form-group col-sm-4">
+          <label for="winId">WinId</label>
+            <input type="text" class="form-control" name="WinId" [(ngModel)]="user.WinId" #WinId="ngModel" required> <!--(keyup)="onKeyWinId($event)"-->
+          <div *ngIf="f.submitted && WinId.invalid" class="invalid-feedback">
+              <div *ngIf="WinId.errors.required">WinId is required</div>
+          </div>
+        </div>
+        <!-- end win id-->
+        <div class="form-group col-sm-4" hidden>
+            <label for="username">Username</label>
+            <input type="text" class="form-control"  name="UserName" [(ngModel)]="user.UserName" #UserName="ngModel" required  />
+            <div *ngIf="f.submitted && UserName.invalid" class="invalid-feedback">
+                <div *ngIf="UserName.errors.required">Username is required</div>
+            </div>
+        </div>
+        <div class="form-group col-sm-4"hidden>
+            <label for="password">Password</label>
+            <input type="password" disabled class="form-control" name="Password" [(ngModel)]="user.Password" #Password="ngModel"  required minlength="6" />
+            <div *ngIf="f.submitted && Password.invalid" class="invalid-feedback">
+                <div *ngIf="Password.errors.required">Password is required</div>
+                <div *ngIf="Password.errors.minlength">Password must be at least 6 characters</div>
+            </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="form-group col-sm-4">
+          <label>Roles</label><br>
+          <p-multiSelect [options]="roles" #pControl="ngModel" [(ngModel)]="selectedRole"
+            (onChange)="onChangeRole($event.value)" [ngModelOptions]="{standalone: true}" [required]="true">
+          </p-multiSelect>
+          <div *ngIf="f.submitted && pControl.invalid" class="invalid-feedback">
+            <div *ngIf="pControl.errors.required">Role is required</div>
+          </div>
+
+        </div>
+        <div class="form-group col-sm-4" *ngIf="showBusiness">
+          <label>Business</label><br>
+          <p-multiSelect [options]="businessByRole" [(ngModel)]="selectedBusiness"
+            (onChange)="onChangeBusiness($event.value)" [ngModelOptions]="{standalone: true}"></p-multiSelect>
+        </div>
+
+        <div *ngIf="showRegions" class="form-group col-sm-4">
+          <label>Regions</label><br>
+          <p-multiSelect [options]="regionsByBusiness" [(ngModel)]="selectedRegion"
+            (onChange)="onChangeRegions($event.value)" [ngModelOptions]="{standalone: true}"></p-multiSelect>
+        </div>
+
+      </div>
+
+      <!-- <div *ngIf="showRegions" class="row">
+              <div class="form-group col-sm-4">
+                <label>Regions</label><br>
+                <p-multiSelect [options]="regionsByBusiness" [(ngModel)]="selectedRegion" (onChange)="onChangeRegions($event.value)"
+                  [ngModelOptions]="{standalone: true}"></p-multiSelect>
+              </div>
+          </div>  -->
+
+
+
+      <div class="row pull-right">
+        <div class="col-xs-12">
+          <button class="btn btn-primary">Register</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+
+
+  <div class="row">
+    <hr>
+  </div>
+  <!-- SEARCH -->
+  <div class="row ">
+    <div class="col-md-6">
+      <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Search Users...">
+    </div>
+    <div class="col-md-6" style="text-align: right">
+      <h5>
+        Total records:
+        <span class="badge badge-primary"> {{ userCount }}</span>
+      </h5>
+    </div>
+  </div>
+  <br>
+  <!-- end search -->
+  <div class="row">
+    <h1>
+      <i class="glyphicon glyphicon-user"></i> Users
+    </h1>
+  </div>
+  <div class="row">
+    <div class="table-responsive">
+      <table id="myTable" class="table table-hover">
+
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <!-- <th>Username</th>  -->
+            <th>WinId</th>
+            <th>Role</th>
+            <th>Business</th>
+            <th>Email</th>
+            <!-- <th style="text-align: center;">External</th> -->
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container
+            *ngFor="let u of users | searchFilter:{UserName: searchText, FirstName: searchText, LastName: searchText, RoleName: searchText, WinId: searchText} | paginate: {itemsPerPage: 10, currentPage: p}">
+            <tr>
+              <td>{{ u.FirstName }}</td>
+              <td>{{ u.LastName }}</td>
+              <!-- <td>{{ u.UserName }}</td>  -->
+              <td>{{ u.WinId }}</td>
+              <td>{{ u.RoleName }}</td>
+              <td>{{ u.Business}}</td>
+              <td>{{ u.Email }}</td>
+              <!-- <td style="text-align: center;">
+                <i style="text-align: center;" *ngIf="u.ExternalAccess" class="fa fa-check" aria-hidden="true"></i>
+              </td> -->
+              <td class="text-center" style="display: flex;">
+                <button class="btn btn-info" style="margin-right: 5px;" (click)="showEditModal(u.Id)" tooltip="Edit">
+                  <i class="glyphicon glyphicon-edit fa-lg"></i>
+                </button>
+                <button (click)="showAlertModal(u.Id)" class="btn btn-danger" tooltip="Delete">
+                  <i class="glyphicon glyphicon-trash fa-lg"></i>
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+  <div class="row" style="float: right;" >
+    <div class="col-md-12 pagination">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<!-- ALERT DELETE MODAL -->
+<div class="modal fade" bsModal #AlertModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="AlertModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4>
+          <i class="glyphicon glyphicon-trash"></i> Delete user
+        </h4>
+      </div>
+      <div class="modal-body">
+        <h4>Are you sure you want to delete the user <label>{{selectedUser.FirstName}}
+            {{selectedUser.LastName}}</label>?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteUser(selectedUser.Id)">
+          <i class="glyphicon glyphicon-thumbs-up"></i> Yes</button>
+        <button type="button" #btnCloseAlert class="btn btn-secondary" (click)="AlertModal.hide()">
+          <i class="glyphicon glyphicon-thumbs-down"></i> No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal fade" bsModal #EditModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-edit">
+        <button type="button" class="close" (click)="EditModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4>
+          <i class="glyphicon glyphicon-pencil"></i> Edit user <label>{{selectedUser.FirstName}}
+            {{selectedUser.LastName}}</label>
+        </h4>
+      </div>
+      <form #editUserForm="ngForm" name="form" (ngSubmit)="editUserForm.form.valid && editUser()" novalidate>
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="fNameE">First Name</label>
+              <input name="FirstName" #FirstName="ngModel" [(ngModel)]="selectedUser.FirstName" id="fNameE" type="text"
+                class="form-control" required>
+              <div *ngIf="editUserForm.submitted && FirstName.invalid" class="invalid-feedback">
+                <div *ngIf="FirstName.errors.required">First Name is required</div>
+              </div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="lNameE">Last Name</label>
+              <input name="LastName" #LastName="ngModel" [(ngModel)]="selectedUser.LastName" id="lNameE" type="text"
+                class="form-control" required>
+              <div *ngIf="editUserForm.submitted && LastName.invalid" class="invalid-feedback">
+                <div *ngIf="LastName.errors.required">Last Name is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            
+            <div class="form-group col-sm-6" hidden>
+              <label for="userE">Username</label>
+              <input name="UserName" #UserName="ngModel" [(ngModel)]="selectedUser.UserName" required id="userE"
+                type="text" class="form-control" required>
+                <div *ngIf="editUserForm.submitted && UserName.invalid" class="invalid-feedback">
+                  <div *ngIf="UserName.errors.required">Username is required</div>
+              </div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="emailE">Email</label>
+              <input name="Email" #Email="ngModel" [(ngModel)]="selectedUser.Email" [pattern]="emailPattern" id="emailE"
+                type="text" class="form-control" required email>
+              <div *ngIf="editUserForm.submitted && Email.invalid" class="invalid-feedback">
+                <div *ngIf="Email.errors.required">Email is required</div>
+                <div *ngIf="Email.errors.email">Email must be a valid email address</div>
+              </div>
+            </div>
+            <div class="form-group col-sm-6" hidden>
+              <label for="ExternalAccess">External User</label> <br>
+              <input type="checkbox" name="ExternalAccess" style="margin-top: 10px;" [(ngModel)]="selectedUser.ExternalAccess" #ExternalAccess="ngModel">
+             
+            </div>
+          </div>
+          <!-- edit winId-->
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="winIdE">Win Id</label>
+              <!--<input name="FirstName" #FirstName="ngModel" [(ngModel)]="selectedUser.FirstName" id="fNameE"
+                  type="text" class="form-control" required>-->
+              <input #WinId="ngModel" type="text" class="form-control" name="WinId" [(ngModel)]="selectedUser.WinId"
+                required>
+              <!--[(ngModel)]="txtEditWinId"-->
+              <div *ngIf="editUserForm.submitted && WinId.invalid" class="invalid-feedback">
+                <div *ngIf="WinId.errors.required">First Name is required</div>
+              </div>
+            </div>
+          </div>
+          <!-- end edit winId-->
+          <div class="row">
+            <div class="form-group col-sm-4">
+              <label>Roles</label><br>
+              <p-multiSelect required #pControl="ngModel" [options]="roles" [(ngModel)]="rolesByUser"
+                (onChange)="onChangeEditRole($event.value)" [ngModelOptions]="{standalone: true}"></p-multiSelect>
+              <div *ngIf="editUserForm.submitted && pControl.invalid" class="invalid-feedback">
+                <div *ngIf="pControl.errors.required">Role is required</div>
+              </div>
+            </div>
+
+            <div class="form-group col-sm-4" *ngIf="showEditBusiness">
+              <label>Business</label><br>
+              <p-multiSelect [options]="businessByRole" [(ngModel)]="selectedEditBusiness"
+                (onChange)="onChangeEditBusiness($event.value)" [ngModelOptions]="{standalone: true}"></p-multiSelect>
+            </div>
+
+
+            <div class="form-group col-sm-4" *ngIf="showEditRegion">
+              <label>Region</label><br>
+              <p-multiSelect [options]="regionsByBusiness" [(ngModel)]="selectedEditRegion"
+                (onChange)="onChangeEditRegions($event.value)" [ngModelOptions]="{standalone: true}"></p-multiSelect>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success"> Save changes</button>
+          <button type="button" #btnCloseEdit class="btn btn-secondary" (click)="EditModal.hide()"> Cancel</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

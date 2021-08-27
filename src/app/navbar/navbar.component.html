@@ -1,0 +1,174 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="borderNavBar">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <button _ngcontent-c1="" class="navbar-toggle" data-target="#navbar-collapse-1" data-toggle="collapse" type="button"><span _ngcontent-c1="" class="sr-only">Toggle navigation</span><span _ngcontent-c1="" class="icon-bar"></span><span _ngcontent-c1="" class="icon-bar"></span><span _ngcontent-c1="" class="icon-bar"></span></button>
+
+      <a class="navbar-brand" id="title" routerLink="/dashboard">
+        <img src="assets/Conduent_Registermark_White.png" />
+      
+      </a>
+      <a class="navbar-brand" href="#menu-toggle" id="menu-toggle" title="Menu"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
+      <!-- <button class="navbar-toggle" id="menu-toggle"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button> -->
+    </div>
+
+
+
+
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+<!--     <ul class="nav navbar-nav" *ngIf="isAdmin; else templateUser">
+
+        <li class="dropdown"> <a id="navMenu" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+            aria-haspopup="true" aria-expanded="false"><span class="visible-xs"><i class="fa fa-bars"></i> Menu</span>
+            <span class="hidden-xs"><i class="fa fa-bars"></i></span></a>
+          <ul class="dropdown-menu">
+            <li><a routerLink="/users" href="#">Users</a></li>
+            <li><a routerLink="/linkManager" href="#">Link Management</a></li>
+            <li><a routerLink="/business" href="#">Business / Regions</a></li>
+            <li><a routerLink="/tags" href="#">Tags</a></li>
+            <li><a routerLink="/roles" href="#">Roles</a></li>
+
+          </ul>
+        </li>
+      </ul> 
+ -->
+       <!--  <ng-template #templateUser>
+        <ul class="nav navbar-nav">
+          <li class="dropdown"> <a id="navMenu" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+              aria-haspopup="true" aria-expanded="false"><span class="visible-xs"><i class="fa fa-bars"></i> Menu</span>
+              <span class="hidden-xs"><i class="fa fa-bars"></i></span></a>
+            <ul class="dropdown-menu">
+              <li *ngFor="let b of business" class="dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                  aria-haspopup="true" aria-expanded="false">{{b.Name}}</a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-submenu" *ngFor="let r of b.Region"><a href="#" class="dropdown-toggle"
+                      data-toggle="dropdown" role="button" aria-haspopup="true"
+                      aria-expanded="false">{{r.Name}}</a>
+                    <ul class="dropdown-menu">
+                      <li *ngFor="let l of r.LinkItem"><a routerLink="/powerBi"
+                          (click)="setLink(l.PowerBiLink)">{{l.Name}}</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </ng-template>-->
+
+    
+      <!-- <span id="divStage" >Test environment <i class="glyphicon glyphicon-warning-sign"></i></span> -->
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="hidden-xs"> <span class="navbar-text" id="userText">Welcome to Global Intelligence Reporting</span></li>
+        <li class="hidden-xs dropdown">
+          <a id="navMenu" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            aria-expanded="false"><span class="hidden-xs rounded-circle">{{ initialsUser }} </span></a>
+          <ul class="dropdown-menu box-profile" style="width: 200px;">
+            <li class="dropdown-header username-header">
+              <i class="glyphicon glyphicon-user" style="font-size: 17px"></i>&nbsp;
+              {{ userClaims.FirstName }} {{ userClaims.LastName }} <span title="External user">(E)</span>
+            </li>
+            <li class="divider"></li>
+            <!-- <li><a routerLink="/profile" href="#">Profile</a></li> -->
+            <!-- <li><a (click)="showChangePasswordModal()" href="#">Change password</a></li> -->
+            <li><a (click)="Logout()" href="#">Logout</a></li>
+          </ul>
+        </li>
+         <li class="visible-xs dropdown">
+            <a id="navMenu" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            aria-expanded="false"> <i class="glyphicon glyphicon-user" style="font-size: 18px"></i>&nbsp;
+              {{ userClaims.FirstName }} {{ userClaims.LastName }} <span title="External user">(E)</span> </a>
+          <ul class="dropdown-menu box-profile">
+            <!-- <li><a routerLink="/profile" href="#">Profile</a></li>-->
+            <!-- <li><a (click)="showChangePasswordModal()" href="#">Change password</a></li> -->
+            <li><a (click)="Logout()" href="#">Logout</a></li>
+          </ul>
+        </li> 
+      </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div>
+</nav>
+
+
+<!-- EDIT MODAL -->
+<div class="modal fade" bsModal #ChangePasswordModal="bs-modal" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-edit">
+        <button type="button" class="close" (click)="ChangePasswordModal.hide()" aria-label="Close"
+          style="color:rgb(0, 0, 0);">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4>
+          <i class="glyphicon glyphicon-lock"></i> Change password
+        </h4>
+      </div>
+      <form (ngSubmit)="updatePassword(objPassword.Password)" #frmModal="ngForm">
+        <div class="modal-body">
+          <div class="row">
+            <!-- <div class="form-group col-sm-6">
+              <label for="name">Username</label>
+              <input [(ngModel)]="objPassword.UserName" name="musername" id="musername" type="text" class="form-control"
+                required placeholder="Enter Username">
+            </div> -->
+            <div class="form-group col-sm-12">
+              <label for="name">Password</label>
+              <input [(ngModel)]="objPassword.Password" name="mpassword" type="password" class="form-control"
+                id="mpassword" placeholder="Enter the old password" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label for="name">New password</label>
+              <input [(ngModel)]="objPassword.NewPassword" name="newpassword" type="password" class="form-control"
+                id="newpassword" [formControl]="newpassword" placeholder="Enter the new password" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label for="name">Confirm New Password</label>
+              <input [(ngModel)]="objPassword.ConfirmPassword" name="confirmpassword" type="password"
+                class="form-control" id="confirmpassword" placeholder="Confirm the new password" required>
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <div class="alert alert-danger"
+                *ngIf="objPassword.ConfirmPassword !== objPassword.NewPassword ? true : false" role="alert">
+                <p style="color: red">
+                  <i class="fa fa-exclamation-triangle"></i>&nbsp; Passwords do not match
+                </p>
+              </div>
+              <div class="alert alert-danger alert-info" *ngIf="newpassword.invalid && newpassword.dirty" role="alert">
+                <p style="color: red">
+                  Password must have:
+                  <br>
+                  <i class="fa fa-circle fa-xs icon-list"></i> At least 8 characters in length
+                  <br>
+                  <i class="fa fa-circle fa-xs icon-list"></i> Lowercase letters (a-z)
+                  <br>
+                  <i class="fa fa-circle fa-xs icon-list"></i> Uppercase letters (A-Z)
+                  <br>
+                  <i class="fa fa-circle fa-xs icon-list"></i> Numbers (0-9)
+                  <br>
+                  <i class="fa fa-circle fa-xs icon-list"></i> At least a special character ($@!%*?&.)
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- </form> -->
+        </div>
+        <div class="modal-footer">
+          <button
+            [disabled]="!frmModal.valid || newpassword.invalid || objPassword.ConfirmPassword !== objPassword.NewPassword"
+            type="sumbit" class="btn btn-success"> Update password</button>
+          <button type="button" #btnCloseEdit class="btn btn-secondary" (click)="ChangePasswordModal.hide()">
+            Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

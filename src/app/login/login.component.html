@@ -1,0 +1,108 @@
+<div class="container-fluid background scrollbar">
+  <div class="container-login text-center">
+    <div class="row">
+      <div class="col-xs-12 ">
+        <div class="panel panel-default" id="login">
+           <!--  <span class="portal-name">Conduent Performance Portal </span> -->
+            <span class="portal-name">Global Intelligence Reporting </span> <br>
+            <span style="font-size: 15px; color:  white; text-align: center;">- External -</span> 
+          <div class="panel-body">
+            <div id="formContainer" [ngClass]="{'flipped': isFlipped}">
+           
+              <form id="front" #loginForm="ngForm" class="m-t" (ngSubmit)="OnSubmit(externalEmail.value)"
+                [ngClass]="{'non-display': isFlipped}">
+                <br>
+                <div class="form-group">
+                  
+                  <input type="text" #externalEmail ngModel name="externalEmail" placeholder="Email" required
+                    class="form-control lg-input border-animation set-1" placeholder="Email" required
+                    style="text-align:center;">
+                  <span class="border-line-animation top-bottom"></span>
+                  <span class="border-line-animation left-right"></span>
+                </div>
+                <button [disabled]="!loginForm.valid" class="btn btn-primary btn-block btn-lg" type="submit">Sign
+                  In</button>
+                <br>
+              <button type="button" class="btn btn-block btn-link" (click)="showForgotPasswordModal()">
+               <small style="color:#274463"></small>
+              </button>
+                <hr>
+                <div>
+                  <img src="assets/Conduent_Registermark_Black.png"
+                    style="display: block; margin: auto; width: 50%; height: 50%;" />
+                </div>
+
+               <!-- <div class="warning"><i class="glyphicon glyphicon-info-sign"></i> The original URL has moved, if you’re having issues to login click <a style="color:black; font-weight:bolder;text-decoration: underline;" href="https://performance.portal.conduent.com">here</a>. For help or support please contact pbi_contact_services@conduent.com</div>-->
+              </form>
+              <form action="" id="back">
+                <div>
+                  <!-- <h4 class="title-back">Welcome to Global Intelligence Reporting</h4> -->
+                  <h4 class="title-back">Welcome</h4>
+                </div>
+                <i class="fa fa-spinner fa-spin"></i>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal fade" bsModal [config]="{backdrop: 'static'}" #ForgotPasswordModal="bs-modal" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-edit">
+        <button type="button" class="close" (click)="frmModal.resetForm(); ForgotPasswordModal.hide()" aria-label="Close"
+          style="color:rgb(0, 0, 0);">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4>
+          <!-- <i class="glyphicon glyphicon-question-sign"></i>--> Forgot password? 
+        </h4>
+      </div>
+      <form (ngSubmit)="frmModal.form.valid && forgotPassword(frmModal)" #frmModal="ngForm">
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label for="name">  Please enter the email address associated with your account. We'll send you a reset password email. </label>
+              <br>
+              <input type="text" class="form-control" name="Email" [(ngModel)]="objPassword.Email" #Email="ngModel" [pattern]="emailPattern" required email />
+              <div *ngIf="frmModal.submitted && Email.invalid" class="invalid-feedback">
+                  <div *ngIf="Email.errors.required">Email is required</div>
+                  <div *ngIf="Email.errors.email">Email must be a valid email address</div>
+              </div>
+            </div>
+          </div>
+         <div class="row" *ngIf="respuesta!=null">
+            <div class="form-group col-sm-12" *ngIf="respuesta.Error">
+              <div class="alert alert-danger"
+                role="alert">
+                <p style="color: red">
+                  <i class="fa fa-exclamation-triangle"></i>&nbsp; {{respuesta.Message}}
+                </p>
+              </div>
+            </div>
+            <div class="form-group col-sm-12" *ngIf="!respuesta.Error">
+              <div class="alert alert-success"
+                role="alert">
+                <p style="color: green">
+                  <i class="fa fa-check"></i>&nbsp; {{respuesta.Message}}
+                </p>
+              </div>
+            </div>
+          </div> 
+          <!-- </form> -->
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success"> Send </button>
+          <button type="button" #btnCloseEdit class="btn btn-secondary" (click)="frmModal.resetForm(); ForgotPasswordModal.hide()">
+            Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

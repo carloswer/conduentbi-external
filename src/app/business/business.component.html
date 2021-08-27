@@ -1,0 +1,319 @@
+<div class="container-fluid">
+  <div class="row">
+    <h1>
+      <i class="glyphicon glyphicon-plus"></i> Business
+    </h1>
+  </div>
+  <div class="row">
+    <form #bForm="ngForm" (ngSubmit)="bForm.form.valid && OnSubmit(bForm)">
+      <div class="col-md-4">
+        <div class="row">
+          <div class="form-group col-sm-12">
+            <label for="inputBusinessName">Name</label>
+            <input name="Name"  #Name="ngModel" [(ngModel)]="business.Name" id="inputBusinessName" type="text" class="form-control"
+              placeholder="Business Name" required>
+              <div *ngIf="bForm.submitted && Name.invalid" class="invalid-feedback">
+                <div *ngIf="Name.errors.required">Name is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-12">
+            <label for="BusinessVideo">Video Name</label>
+            <input name="BusinessVideo" [(ngModel)]="business.VideoName" id="BusinessVideo" type="text"
+              class="form-control" placeholder="Video Name" #VideoName="ngModel">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-12">
+            <label>Role</label>
+            <select #Role="ngModel" class="form-control" [(ngModel)]="selectedRole" (ngModelChange)="onChangeRole($event)"
+              [ngModelOptions]="{standalone: true}" required>
+              <option disabled selected value="undefined">--Select Role--</option>
+              <option *ngFor="let r of roles" [ngValue]="r.value">{{r.label}}</option>
+            </select>
+            <div *ngIf="bForm.submitted && Role.invalid" class="invalid-feedback">
+              <div *ngIf="Role.errors.required">Role is required</div>
+          </div>
+          </div>
+        </div>
+        <div class="row pull-right">
+          <div class="col-xs-12">
+            <button type="submit" class="btn btn-primary" >Add business</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="col-md-8">
+      <div class="table-responsive">
+        <table id="myTable" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Video</th>
+              <th>Role</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let b of businesses | paginate: {id: 'businessesP', itemsPerPage: 4, currentPage: p}">
+              <tr>
+                <td>{{b.Name}}</td>
+                <td>{{b.VideoName}}</td>
+                <td>{{b.RoleName}}</td>
+                <td class="text-center">
+                  <button (click)="showEditModal(b.ID)" class="btn btn-info" tooltip="Edit">
+                    <i class="glyphicon glyphicon-edit fa-lg"></i>
+                  </button>
+                  <button (click)="showAlertModal(b.ID, 'business', b.Name)" class="btn btn-danger" tooltip="Delete">
+                    <i class="glyphicon glyphicon-trash fa-lg"></i>
+                  </button>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-12 pagination">
+          <pagination-controls id="businessesP" (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <hr>
+  </div>
+  <!-- <div class="row">
+    <h1>
+      <i class="glyphicon glyphicon-plus"></i> Videos
+    </h1>
+  </div>
+  <div class="row">
+    <form [formGroup]="form" (ngSubmit)="submitVideo()">
+      <div class="row">
+        <div class="form-group col-sm-6">
+          <label for="image">Select Video</label>
+          <br>
+          <label class="custom-file-upload">
+            <i class="glyphicon glyphicon-search"></i>
+            <input id="video" type="file" (change)="uploadVideo($event)" accept="video/*" /> Search File...
+          </label>
+          <i *ngIf="checked" class="glyphicon glyphicon-ok checked"></i>
+        </div>
+      </div>
+      <div class="row pull-left">
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-primary" [disabled]="!linkForm.valid || !checked">Add Link</button>
+          <button type="submit" [disabled]="form.invalid || loading" class="btn btn-primary">Submit <i class="fa fa-spinner fa-spin fa-fw"
+              *ngIf="loading"></i></button>
+        </div>
+      </div>
+    </form>
+  </div> -->
+  <!-- <div class="row">
+    <hr>
+  </div> -->
+  <div class="row">
+    <h1>
+      <i class="glyphicon glyphicon-plus"></i> Regions
+    </h1>
+  </div>
+  <div class="row">
+    <form #regionForm="ngForm" (ngSubmit)="regionForm.form.valid && submitRegion(regionForm)"> 
+      <div class="col-md-4">
+        <div class="row">
+          <div class="form-group col-sm-12">
+            <label for="itemLinkName">Name</label>
+            <input name="Name" [(ngModel)]="region.Name" id="itemLinkName" type="text" class="form-control"
+              placeholder="Item Name" #RegionName="ngModel" required>
+              <div *ngIf="regionForm.submitted && RegionName.invalid" class="invalid-feedback">
+                <div *ngIf="RegionName.errors.required">Name is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-12">
+            <label>Business</label>
+            <select class="form-control" [(ngModel)]="region.BusinessID" (ngModelChange)="onChangeBusiness($event)"
+              [ngModelOptions]="{standalone: true}" #Business="ngModel" required>
+              <option disabled selected value="undefined">--Select Business--</option>
+              <option *ngFor="let b of businesses" [ngValue]="b.ID">{{b.Name}}</option>
+            </select>
+            <div *ngIf="regionForm.submitted && Business.invalid" class="invalid-feedback">
+                <div *ngIf="Business.errors.required">Business is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="row pull-right">
+          <div class="col-xs-12">
+            <button type="submit" class="btn btn-primary">Add region</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="col-md-8">
+      <div class="table-responsive">
+        <table id="myTable" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Business</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let r of regions | paginate: {id: 'regionsP', itemsPerPage: 4, currentPage: r}">
+              <tr>
+                <td>{{r.Name}}</td>
+                <td>{{r.BusinessName}}</td>
+                <td class="text-center">
+                  <button (click)="showRegionEditModal(r.ID)" class="btn btn-info" tooltip="Edit">
+                    <i class="glyphicon glyphicon-edit fa-lg"></i>
+                  </button>
+                  <button (click)="showAlertModal(r.ID, 'region', r.Name)" class="btn btn-danger" tooltip="Delete">
+                    <i class="glyphicon glyphicon-trash fa-lg"></i>
+                  </button>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-12 pagination">
+          <pagination-controls id="regionsP" (pageChange)="r = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ALERT DELETE MODAL (BUSINESS) -->
+<div class="modal fade" [config]="{backdrop: 'static'}" bsModal #AlertModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-danger">
+        <button type="button" class="close" (click)="AlertModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4>
+          <i class="glyphicon glyphicon-trash"></i> Delete {{modalTitle}}</h4>
+      </div>
+      <div class="modal-body">
+        <h4>Are you sure you want to delete the {{modalTitle}} <label>{{modalShowName}}</label>?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="delete(modalTitle)">
+          <i class="glyphicon glyphicon-thumbs-up"></i> Yes</button>
+        <button type="button" #btnCloseAlert class="btn btn-secondary" (click)="AlertModal.hide()">
+          <i class="glyphicon glyphicon-thumbs-down"></i> No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT BUSINESS MODAL -->
+<div class="modal fade" [config]="{backdrop: 'static'}" bsModal #EditModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-edit">
+        <button type="button" class="close" (click)="EditModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4>
+          <i class="glyphicon glyphicon-pencil"></i> Edit business</h4>
+      </div>
+      <form #businessForm="ngForm" (ngSubmit)="businessForm.form.valid && editBusiness()">
+        <div class="modal-body">
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <label for="BusinessName">Name</label>
+                    <input name="BusinessName" #BusinessName="ngModel" [(ngModel)]="selectedBusiness.Name" id="BusinessName"
+                      type="text" class="form-control" placeholder="Business Name" required>
+                      <div *ngIf="businessForm.submitted && BusinessName.invalid" class="invalid-feedback">
+                        <div *ngIf="BusinessName.errors.required">Name is required</div>
+                    </div>
+                      
+                </div>
+              </div>
+              <div class="row">
+                  <div class="form-group col-sm-12">
+                      <label for="BusinessVideo">Video Name</label>
+              <input name="BusinessVideo" #BusinessVideo="ngModel" [(ngModel)]="selectedBusiness.VideoName"
+                id="BusinessVideo" type="text" class="form-control" placeholder="Video Name">
+                   
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12">
+                        <label>Role</label>
+                        <select class="form-control" [(ngModel)]="selectedRole" (ngModelChange)="onChangeRole($event)"
+                          [ngModelOptions]="{standalone: true}" #Role="ngModel" required>
+                          <option disabled selected>--Select Role--</option>
+                          <option *ngFor="let r of roles" [ngValue]="r.value">{{r.label}}</option>
+                        </select>
+                        <div *ngIf="bForm.submitted && Role.invalid" class="invalid-feedback">
+                          <div *ngIf="Role.errors.required">Role is required</div>
+                      </div>
+                    </div>
+                  </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success"> Save changes</button>
+          <button type="button" #btnCloseEdit class="btn btn-secondary" (click)="EditModal.hide()"> Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT REGION MODAL -->
+<div class="modal fade"  [config]="{backdrop: 'static'}" bsModal #EditRegionModal="bs-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-edit">
+        <button type="button" class="close" (click)="EditRegionModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4>
+          <i class="glyphicon glyphicon-pencil"></i> Edit region</h4>
+      </div>
+      <form #regionFormEdit="ngForm" (ngSubmit)="regionFormEdit.form.valid && editRegion()">
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label for="editRegion">Name</label>
+              <input name="Name" [(ngModel)]="selectedRegion.Name" id="editRegion" type="text" class="form-control"
+                placeholder="Region Name" #RegionName="ngModel" required>   
+                <div *ngIf="regionFormEdit.submitted && RegionName.invalid" class="invalid-feedback">
+                    <div *ngIf="RegionName.errors.required">Name is required</div>
+                </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label>Business</label>
+              <select class="form-control" [(ngModel)]="selectedBusiness.ID" (ngModelChange)="onChangeBusiness($event)"
+                [ngModelOptions]="{standalone: true}" #Business="ngModel" required>
+                <option disabled selected value="undefined">--Select business--</option>
+                <option *ngFor="let b of businesses" [ngValue]="b.ID">{{b.Name}}</option>
+              </select>
+              <div *ngIf="regionFormEdit.submitted && Business.invalid" class="invalid-feedback">
+                  <div *ngIf="Business.errors.required">Business is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success"> Save changes</button>
+            <button type="button" #btnCloseEditRegion class="btn btn-secondary" (click)="EditRegionModal.hide()">
+              Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

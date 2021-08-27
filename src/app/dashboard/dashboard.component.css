@@ -1,0 +1,252 @@
+.jumbotron{
+  background-color: transparent;
+}
+
+.label-welcome{
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 35px;
+}
+
+.label-selectDashboard{
+color: white;
+font-family: 'Open Sans', sans-serif;
+  font-size: 22px;
+}
+
+/* .background {
+  background: url('assets/dashboardBG.jpg') center/cover no-repeat fixed;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 125%;
+}  */
+
+/* ng2-input-autocomplete  */
+.search-control {
+  line-height: 2 !important;
+  padding-left: 5px !important;
+  width: 100%;
+}
+
+::ng-deep .autocomplete input {
+  line-height: 2 !important;
+  padding-left: 5px !important;
+  width: 100%;
+}
+::ng-deep #divSearch > div[style]{
+  display:block !important;
+ }
+
+/* @media screen and (min-width: 1366px) {
+  .search-control {
+    width: 62em !important;
+  }
+
+  ::ng-deep .autocomplete input {
+    width: 62em !important;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .search-control {
+    width: 65.6em !important;
+  }
+
+  ::ng-deep .autocomplete input {
+    width: 65.6em !important;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  .search-control {
+    width: 88.5em !important;
+  }
+
+  ::ng-deep .autocomplete input {
+    width: 88.5em !important;
+  }
+}
+ */
+
+/* table */
+
+.text-align-left{
+  text-align: left;
+}
+
+.text-align-right{
+  text-align: right;
+}
+
+.btn-light{
+  font-size:9px;
+  /* styling buttons for ios */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+   appearance: none;
+   border-radius:0;
+}
+
+.slash-color{
+  color: #FF8700;
+  font-weight: bold;
+  font-size: 30px;
+}
+.borderless td,
+.borderless th {
+  border: none;
+}
+
+.title {
+  font-family: 'Open Sans', sans-serif;
+  /* font-family: Oswald; */
+  font-size: 35px;
+  color: white;
+}
+
+.color-letters-countries {
+  color: white;
+  font-size: 17px;
+  font-family: 'Oswald';
+  vertical-align: middle;
+  font-family: 'Open Sans', sans-serif;
+  /* font-family: 'Oswald'; */
+}
+
+/*Scroll*/
+.my-custom-scrollbar {
+  /* position: relative; */
+  height: 430px;
+  overflow: auto;
+  margin-top:20px;
+  }
+
+  .my-custom-scrollbar::-webkit-scrollbar
+{
+  width: 12px;
+  border-radius: 10px;
+  background-color: rgb(245, 245, 245);
+}
+
+.my-custom-scrollbar::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.750);
+}
+
+.text-align-left{
+  text-align: left;
+}
+
+.text-align-right{
+  text-align: right;
+}
+
+.table-responsive{
+  border: 0px solid #ddd;
+}
+
+.form-control{
+  border-radius: 0 !important;
+}
+
+.custom-scroll{
+  max-height: 430px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.panel-primary{
+  
+  border-color: #274463;
+}
+
+.panel-primary>.panel-heading {
+  background-color: #274463;
+  border-color: #274463;
+ 
+}
+
+/*Menu dashboards*/
+
+#business > .panel-default{
+        opacity: 0.9;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        border-color: #274463;
+        opacity: 0.9;
+        box-shadow: 5px 6px 15px black;
+}
+
+#regions > .panel-default{
+  opacity: 0.9;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  opacity: 0.9;
+  border:none;
+  /*box-shadow: 5px 6px 15px black;*/
+}
+
+
+#business > .panel-default>.panel-heading {
+  color: #fff;
+  background-color: #618FBF; /*#274463 #4380C2*/
+  border-left: #FF8700 solid;
+}
+#regions > .panel-default>.panel-heading {
+  color: #55585A;
+  background-color: #DADDDC;
+  border-left: #FF8700 solid;
+}
+
+.list-group-item{
+  border:none;
+}
+
+.list-group-item a {
+  color:#55585A;
+}
+
+.list-group-item a:hover {
+  color:#55585A;
+}
+
+.list-group-item:hover {
+  color:#55585A;
+  background-color:#DADDDC;
+}
+
+.panel-title {
+  position: relative;
+}
+  
+#business > .panel-default >.panel-heading > .panel-title> a::after {
+	content: "\f107";
+	color: #fff;
+	top: -2px;
+	right: 0px;
+	position: absolute;
+  font-family: "FontAwesome";
+}
+#regions > .panel-default >.panel-heading > .panel-title>  a::after {
+	content: "\f107";
+	color: #555B5A;
+	top: -2px;
+	right: 0px;
+	position: absolute;
+  font-family: "FontAwesome";
+}
+
+a[aria-expanded="true"]::after {
+  content: "\f106";
+}
+
+a:focus, a:hover{
+  cursor: pointer !important;
+  text-decoration: none !important;
+}
+
+
+  
+
+

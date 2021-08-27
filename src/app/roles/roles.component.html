@@ -1,0 +1,114 @@
+<div class="container-fluid">
+  <div class="row">
+    <h1>
+      <i class="glyphicon glyphicon-plus"></i> Roles
+    </h1>
+  </div>
+  <div class="row">
+    <form #roleForm="ngForm" (ngSubmit)="roleForm.form.valid && OnSubmit(roleForm)">
+      <div class="col-md-4">
+        <div class="row">
+          <div class="form-group col-sm-12">
+            <label for="roleName">Name</label>
+            <input name="Name" #Name="ngModel" [(ngModel)]="role.Name" id="roleName" type="text" class="form-control"
+              placeholder="Role Name" required>
+              <div *ngIf="roleForm.submitted && Name.invalid" class="invalid-feedback">
+                <div *ngIf="Name.errors.required">Name is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="row pull-right">
+          <div class="col-xs-12">
+            <button type="submit" class="btn btn-primary">Add role</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="col-md-8">
+      <div class="table-responsive">
+        <table id="myTable" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let r of roles | paginate: {id: 'roles', itemsPerPage: 7, currentPage: p}">
+              <tr>
+                <td>{{r.Name}}</td>
+                <td class="text-center">
+                  <button (click)="showEditModal(r.ID)" class="btn btn-info" tooltip="Edit">
+                    <i class="glyphicon glyphicon-edit fa-lg"></i>
+                  </button>
+                  <button (click)="showAlertModal(r.ID)" class="btn btn-danger" tooltip="Delete">
+                    <i class="glyphicon glyphicon-trash fa-lg"></i>
+                  </button>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+        <pagination-controls id="roles" (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ALERT DELETE MODAL -->
+<div class="modal fade" [config]="{backdrop: 'static'}" bsModal #AlertModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-danger">
+        <button type="button" class="close" (click)="AlertModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4>
+          <i class="glyphicon glyphicon-trash"></i> Delete role</h4>
+      </div>
+      <div class="modal-body">
+        <h4>Are you sure you want to delete this role?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="delete(roleID)">
+          <i class="glyphicon glyphicon-thumbs-up"></i> Yes</button>
+        <button type="button" #btnCloseAlert class="btn btn-secondary" (click)="AlertModal.hide()">
+          <i class="glyphicon glyphicon-thumbs-down"></i> No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal fade" [config]="{backdrop: 'static'}" bsModal #EditModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+      <div class="modal-content">
+        <div class="modal-header modal-edit">
+          <button type="button" class="close" (click)="EditModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">
+            <i class="glyphicon glyphicon-pencil"></i> Edit role</h4>
+        </div>
+        <form (ngSubmit)="frmModal.form.valid && editRole()" #frmModal="ngForm">
+          <div class="modal-body">
+            <div class="row">
+              <div class="form-group col-sm-12">
+                <label for="roleEditName">Name</label>
+                <input name="Name" #NewName="ngModel" [(ngModel)]="newRole.Name" id="roleEditName" type="text" class="form-control" placeholder="Role Name"
+                  required>
+                  <div *ngIf="frmModal.submitted && NewName.invalid" class="invalid-feedback">
+                      <div *ngIf="NewName.errors.required">Name is required</div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success"> Save changes</button>
+            <button type="button" #btnCloseEdit class="btn btn-secondary" (click)="EditModal.hide()"> Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
